@@ -1,0 +1,13 @@
+{% extends "userInput/root.html" %}
+
+{% block title %}
+All reviews
+{% endblock title %}
+
+{% block content %}
+<ul>
+    {% for review in reviews %}
+    <li>{{review.first_name}} {{review.last_name}} (Rating: {{review.rating}}) <li/>
+    {% endfor %}
+</ul>
+{% endblock content %}

@@ -1,9 +1,12 @@
+from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from .forms import ReviewForm
-from .models import Review
 from django.views import View
+from django.views.generic.base import TemplateView
+from django.views.generic import ListView,DetailView
+from .models import Review
 
 # Create your views here.
 
@@ -26,6 +29,25 @@ class ReviewView(View):
             "form":form
          })
         
+        
+class Success(TemplateView):
+    template_name = "userInput/success.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["message"]="This Works!"
+        return context
+    
+    
+class ReviewsListView(ListView):
+    template_name = "userInput/review_list.html"
+    model=Review
+    context_object_name = "reviews"
 
-def success (request):
-    return render(request,"userInput/success.html")
+
+class SingleReview(DetailView):
+    template_name="userInput/single_review.html"
+    model= Review
+    
+    
+    
